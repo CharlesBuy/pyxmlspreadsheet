@@ -64,19 +64,23 @@ class cell_converter():
 		return self.cell_styles.get(cell['type'],self.default_format)
 		
 
-if __name__ == '__main__':
-	if (len(sys.argv) < 3):
-		print "me.py input_spreadsheet.xml output.xls"
-		sys.exit()
-
+def convert_xml_spreadsheet_to_xls(in_path, out_path):
 	wb_o = xlwt.Workbook(encoding="UTF-8")
-	wb = xml_workbook(sys.argv[1])
+	wb = xml_workbook(in_path)
 	conv = cell_converter()
 	for ws_idx, ws in enumerate(wb.get_worksheets()):
 		ws_o = wb_o.add_sheet("Converted Data%d" % ws_idx)
 		for row_idx, row in enumerate(wb.get_rows(ws)):
 			for cell_idx, cell in enumerate(wb.get_cells(row)):
 				ws_o.write(row_idx, cell_idx, conv.get_text(cell), conv.get_style(cell))
+	wb_o.save(out_path)
 
-	wb_o.save(sys.argv[2])
+
+if __name__ == '__main__':
+	if (len(sys.argv) < 3):
+		print "me.py input_spreadsheet.xml output.xls"
+		sys.exit()
+	convert_xml_spreadsheet_to_xls(sys.argv[1],sys.argv[2])
+
+
 
