@@ -17,4 +17,5 @@ I made this script because of this error when trying to open an xml spreadsheet 
         bof_error('Expected BOF record; found %r' % self.mem[savpos:savpos+8])
       File "C:\Python27\lib\site-packages\xlrd\book.py", line 1224, in bof_error
         raise XLRDError('Unsupported format, or corrupt file: ' + msg)
+    xlrd.biffh.XLRDError: Unsupported format, or corrupt file: Expected BOF record; found '<?xml ve'
 ```
